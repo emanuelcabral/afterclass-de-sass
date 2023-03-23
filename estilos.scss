@@ -1,0 +1,177 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+nav{
+    height: 80px;
+    width: 100%;
+    background-color: purple;
+    padding: 20px;
+    font-size: 25px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+    ul{
+        list-style: none;
+
+        li{
+            display: inline-block;
+            background-color: rgb(39, 113, 0);
+            padding: 5px 10px;
+            border-radius: 7px;
+            // animation-name: aparecer;
+            // animation-duration: 2s;
+
+            a{
+                color: yellow;
+                text-decoration: none;
+            }
+        }
+
+        li:nth-child(2){
+            background-color: blue;
+            // animation-duration: 10s;
+        }
+
+        li:nth-child(3){
+            background-color: red;
+            // animation-duration: 20s;
+        }
+
+        li:nth-child(4){
+            background-color: orange;
+            // animation-duration: 30s;
+        }
+        li:nth-child(5){
+            background-color: black;
+            // animation-duration: 40s;
+        }
+    }
+
+}
+
+@keyframes aparecer {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+
+
+// mixins de filtros
+
+@mixin grayscale{
+    filter: grayscale(100%);
+}
+
+@mixin sepia{
+    filter: sepia(100%);
+}
+
+@mixin hue-rotate($grados){
+    filter:hue-rotate($grados);
+}
+
+// galeria de imagenes con @for
+
+h2{
+    text-align: center;
+    text-transform: uppercase;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.contenedor{
+    min-height: 600px;
+    width: 100%;
+    background-color: aqua;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: repeat(3, 200px);
+}
+
+.item{
+    border: 2px solid #000;
+    background-image: url(img/img1.jpg);
+    background-size: 85%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.item:hover{
+    transition: all 0.9s;
+    background-size: 125%;
+}
+
+$micolor1: rgb(3, 56, 5);
+$micolor2: rgb(56, 55, 3);
+$micolor3: rgb(12, 6, 0);
+
+@for $i from 1 through 3 {
+    .item#{$i} {
+        background-color: lighten($micolor1, $i * 10%);
+        background-image: url(img/img#{$i}.jpg);
+        @include grayscale;
+    }
+}
+
+@for $i from 4 through 6 {
+    .item#{$i} {
+        background-color: lighten($micolor2, $i * 10%);
+        background-image: url(img/img#{$i}.jpg);
+        @include sepia;
+    }
+}
+
+// @for $i from 5 through 8 {
+//     .item#{$i} {
+//         border: double 10px red;
+//         // @include sepia;
+//     }
+// }
+
+@for $i from 7 through 9 {
+    .item#{$i} {
+        background-color: lighten($micolor3, $i * 7%);
+        background-image: url(img/img#{$i}.jpg);
+        @include hue-rotate(50deg);
+    }
+}
+
+// lista con @for
+
+$micolor4: rgb(170, 255, 0);
+$micolor5: rgb(255, 0, 0);
+
+.contenedor2{
+    width: 80%;
+    min-height: 600px;
+    background-color: aqua;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+.caja{
+    height: 100px;
+    background-color: blue;
+    text-align: center;
+    line-height: 100px;
+    border-radius: 50px;
+    border: 5px solid #000;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-transform: uppercase;
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 5px #000;
+    color: #fff;
+}
+
+@for $i from 1 through 6 {
+    .caja#{$i} {
+        background-color: darken($micolor4, $i * 7%);
+    }
+    
+}
+
+
